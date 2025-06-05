@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Editor de Preguntas Abiertas</title>
+   <link rel="stylesheet" href="pa_admin.css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+   <header class="navbar">
+    <div class="navbar">
+        <div class="navbar-left">
+            <div class="menu-icon" id="menuIcon">☰</div>
+            <a href="dashboard_admin.html" id="homeIcon">
+                <i class="fas fa-home home-icon"></i>
+            </a>
+        </div>
+       <div class="navbar-title-container">
+            <span class="navbar-title">Pregunta Abierta</span>
+       </div>
+   </header>
+
+
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="dashboard_admin.html">Inicio</a></li>
+                <li><a href="perfil_admin.html">Mi Perfil</a></li>
+                <li><a href="materias_admin.html">Materias</a></li>
+                <li><a href="temas_admin.html">Temas</a></li>
+                <li><a href="preguntas_admin.html">Preguntas</a></li>
+                <hr class="sidebar-divider">
+                <li><a href="login.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+
+   <main class="main-content" id="mainContent">
+       <div class="content-card">
+           <h2>Editor de Preguntas</h2>
+           <form id="pa-question-form" action="pa_admin.php" method="POST" enctype="multipart/form-data">
+               <input type="hidden" name="accion_formulario" value="guardar_pregunta_abierta">
+              
+               <div class="form-section">
+                   <label for="pregunta_texto" class="form-label">Pregunta:</label>
+                   <div class="question-area">
+                       <textarea id="pregunta_texto" class="form-textarea" name="pregunta_texto" placeholder="Escribe tu pregunta abierta aquí" required></textarea>
+                       <div class="image-upload-wrapper">
+                           <label class="image-upload-label-button">
+                               <input type="file" name="pregunta_imagen" accept="image/*" class="image-upload-input">
+                               Añadir Imagen
+                           </label>
+                       </div>
+                   </div>
+                   <div class="image-preview" id="pregunta-preview"></div>
+               </div>
+
+
+<!-- Update the respuesta_esperada section -->
+<div class="form-section">
+    <label for="respuesta_esperada" class="form-label">Respuesta Esperada / Palabras Clave:</label>
+    <div class="answer-area">
+        <textarea id="respuesta_esperada" class="form-textarea" name="respuesta_esperada" 
+                  placeholder="Escribe la respuesta esperada o palabras clave separadas por comas" 
+                  rows="5" required></textarea>
+        <div class="image-upload-wrapper">
+            <label class="image-upload-label-button">
+                <input type="file" name="respuesta_imagen" accept="image/*" class="image-upload-input">
+                Añadir Imagen
+            </label>
+        </div>
+    </div>
+    <div class="image-preview" id="respuesta-preview"></div>
+</div>
+              
+               <div class="form-section difficulty-section">
+                   <div class="difficulty-label">Dificultad:</div>
+                   <div class="difficulty">
+                       <input type="hidden" id="dificultad_valor" name="dificultad" value="3"> <div class="fueguitos">
+                           <span class="fueguito" data-level="1">🔥</span>
+                           <span class="fueguito" data-level="2">🔥</span>
+                           <span class="fueguito" data-level="3">🔥</span>
+                           <span class="fueguito" data-level="4">🔥</span>
+                           <span class="fueguito" data-level="5">🔥</span>
+                       </div>
+                   </div>
+               </div>
+              
+               <div class="action-buttons">
+                   <button type="button" class="button delete-button">ELIMINAR</button>
+                   <button type="submit" name="guardar_btn" class="button save-button">GUARDAR</button>
+                   <button type="submit" name="aprobar_btn" class="button approve-button">APROBAR</button>
+               </div>
+           </form>
+       </div>
+   </main>
+
+
+   <script src="pa_admin.js" defer></script>
+
+</body>
+</html>

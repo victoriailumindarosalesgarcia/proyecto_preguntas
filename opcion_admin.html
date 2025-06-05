@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Editor de Preguntas</title>
+   <link rel="stylesheet" href="opcion_admin.css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+   <header class="navbar">
+        <div class="navbar">
+        <div class="navbar-left">
+            <div class="menu-icon" id="menuIcon">☰</div>
+            <a href="dashboard_admin.html" id="homeIcon">
+                <i class="fas fa-home home-icon"></i>
+            </a>
+        </div>
+       <div class="navbar-title-container">
+            <span class="navbar-title">Opción Múltiple</span>
+       </div>
+   </header>
+
+
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="dashboard_admin.html">Inicio</a></li>
+                <li><a href="perfil_admin.html">Mi Perfil</a></li>
+                <li><a href="materias_admin.html">Materias</a></li>
+                <li><a href="temas_admin.html">Temas</a></li>
+                <li><a href="preguntas_admin.html">Preguntas</a></li>
+                <hr class="sidebar-divider">
+                <li><a href="login.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+
+   <main class="main-content" id="mainContent">
+       <div class="content-card">
+           <h2>Editor de Preguntas</h2>
+           <form id="question-form" action="opcion_admin.php" method="POST" enctype="multipart/form-data">
+               <input type="hidden" name="accion_formulario" value="guardar_pregunta"> <div class="form-section">
+                   <label for="pregunta_texto" class="form-label">Pregunta:</label>
+                   <div class="question-area">
+                       <textarea id="pregunta_texto" class="form-textarea" name="pregunta" placeholder="Escribe tu pregunta aquí" required></textarea>
+                       <div class="image-upload-wrapper">
+                           <label class="image-upload-label-button">
+                               <input type="file" name="pregunta_imagen" accept="image/*" class="image-upload-input">
+                               Añadir Imagen
+                           </label>
+                       </div>
+                   </div>
+                   <div class="image-preview" id="pregunta-preview"></div>
+               </div>
+
+
+               <div class="form-section">
+                   <label class="form-label">Opciones de Respuesta (marca la correcta):</label>
+                   <div class="options">
+                       <label class="option">
+                           <input type="radio" name="correcta" value="1" checked class="correct-radio">
+                           <div class="option-content">
+                               <input type="text" name="op1_texto" placeholder="Texto de la respuesta 1" class="answer-input" required>
+                               <div class="image-upload-wrapper-icon">
+                                   <label class="image-upload-label-icon">
+                                       <input type="file" name="op1_imagen" accept="image/*" class="image-upload-input">
+                                       🖼️
+                                   </label>
+                               </div>
+                           </div>
+                           <div class="image-preview option-image-preview" id="op1-preview"></div>
+                       </label>
+                      
+                       <label class="option">
+                           <input type="radio" name="correcta" value="2" class="correct-radio">
+                           <div class="option-content">
+                               <input type="text" name="op2_texto" placeholder="Texto de la respuesta 2" class="answer-input" required>
+                               <div class="image-upload-wrapper-icon">
+                                   <label class="image-upload-label-icon">
+                                       <input type="file" name="op2_imagen" accept="image/*" class="image-upload-input">
+                                       🖼️
+                                   </label>
+                               </div>
+                           </div>
+                           <div class="image-preview option-image-preview" id="op2-preview"></div>
+                       </label>
+
+
+                       <label class="option">
+                           <input type="radio" name="correcta" value="3" class="correct-radio">
+                           <div class="option-content">
+                               <input type="text" name="op3_texto" placeholder="Texto de la respuesta 3" class="answer-input">
+                                <div class="image-upload-wrapper-icon">
+                                   <label class="image-upload-label-icon">
+                                       <input type="file" name="op3_imagen" accept="image/*" class="image-upload-input">
+                                       🖼️
+                                   </label>
+                               </div>
+                           </div>
+                          <div class="image-preview option-image-preview" id="op3-preview"></div>
+                       </label>
+
+
+                       <label class="option">
+                           <input type="radio" name="correcta" value="4" class="correct-radio">
+                           <div class="option-content">
+                               <input type="text" name="op4_texto" placeholder="Texto de la respuesta 4" class="answer-input">
+                                <div class="image-upload-wrapper-icon">
+                                   <label class="image-upload-label-icon">
+                                       <input type="file" name="op4_imagen" accept="image/*" class="image-upload-input">
+                                       🖼️
+                                   </label>
+                               </div>
+                           </div>
+                           <div class="image-preview option-image-preview" id="op4-preview"></div>
+                       </label>
+                   </div>
+               </div>
+              
+               <div class="form-section difficulty-section">
+                   <div class="difficulty-label">Dificultad:</div>
+                   <div class="difficulty">
+                       <input type="hidden" id="dificultad_valor" name="dificultad" value="3">
+                       <div class="fueguitos">
+                           <span class="fueguito" data-level="1">🔥</span>
+                           <span class="fueguito" data-level="2">🔥</span>
+                           <span class="fueguito" data-level="3">🔥</span>
+                           <span class="fueguito" data-level="4">🔥</span>
+                           <span class="fueguito" data-level="5">🔥</span>
+                       </div>
+                   </div>
+               </div>
+              
+               <div class="action-buttons">
+                   <button type="button" class="button delete-button">ELIMINAR</button>
+                   <button type="submit" name="guardar_btn" class="button save-button">GUARDAR</button>
+                   <button type="submit" name="aprobar_btn" class="button approve-button">APROBAR</button>
+               </div>
+           </form>
+       </div>
+   </main>
+
+
+   <script src="opcion_admin.js" defer></script>
+
+</body>
+</html>

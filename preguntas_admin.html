@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Preguntas</title>
+    <link rel="stylesheet" href="preguntas_admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+            <div class="navbar">
+        <div class="navbar-left">
+            <div class="menu-icon" id="menuIcon">☰</div>
+            <a href="dashboard_admin.html" id="homeIcon">
+                <i class="fas fa-home home-icon"></i>
+            </a>
+        </div>
+        <div class="navbar-title-container">
+            <span class="navbar-title">Agregar Nuevo Tema</span>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="dashboard_admin.html">Inicio</a></li>
+                <li><a href="perfil_admin.html">Mi Perfil</a></li>
+                <li><a href="materias_admin.html">Materias</a></li>
+                <li><a href="temas_admin.html">Temas</a></li>
+                <li><a href="preguntas_admin.html">Preguntas</a></li>
+                <hr class="sidebar-divider">
+                <li><a href="login.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <main class="main-content">
+        <div class="content-card">
+            <div class="header-actions">
+                <h2>Todas las Preguntas</h2>
+                <a href="question_type_selection.html?from=preguntas_admin.html" class="button add-button">+ Nueva Pregunta</a>
+            </div>
+            
+            <div class="filters">
+                <select id="filterType">
+                    <option value="all">Todos los tipos</option>
+                    <option value="opcion">Opción múltiple</option>
+                    <option value="abierta">Abierta</option>
+                    <option value="vf">Verdadero/Falso</option>
+                </select>
+                
+                <select id="filterStatus">
+                    <option value="all">Todos los estados</option>
+                    <option value="aprobada">Aprobadas</option>
+                    <option value="pendiente">Pendientes</option>
+                    <option value="rechazada">Rechazadas</option>
+                </select>
+                
+                <button id="applyFilters" class="button filter-button">Filtrar</button>
+            </div>
+            
+            <div class="table-container">
+                <table id="questionsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Pregunta</th>
+                            <th>Tipo</th>
+                            <th>Dificultad</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+                </div>
+        <a href="#" id="dynamicBackButton" class="back-button">Volver atrás</a>
+    </div>
+
+    </main>
+
+    <script src="preguntas_admin.js"></script>
+</body>
+</html>
