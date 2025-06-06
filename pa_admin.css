@@ -122,8 +122,10 @@ body.sidebar-open .main-content { margin-left: 250px; }
 #respuesta_esperada {
     min-height: 80px;  
     max-height: 150px;
-    width: 79%; 
+    width: auto; 
     display: block;
+    flex-shrink: 0;
+    flex-grow: 1;
 }
 
 
@@ -211,6 +213,7 @@ body.sidebar-open .main-content { margin-left: 250px; }
 .button:hover { transform: translateY(-1px); }
 
 
+
 .save-button { background-color: #2563eb; }
 .save-button:hover { background-color: #1d4ed8; }
 
@@ -240,10 +243,18 @@ body.sidebar-open .main-content { margin-left: 250px; }
     border: 1px solid #e5e7eb;
 }
 
+.answer-area {
+   display: flex;
+   gap: 1rem;
+   align-items: flex-start;
+}
+
 .answer-area .image-upload-wrapper {
     margin-top: 0;
     align-self: flex-end; 
+    flex-shrink: 0;
 }
+
 
    .sidebar-divider {
     height: 1px;

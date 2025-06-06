@@ -275,6 +275,8 @@ ALTER TABLE `opciones`
 ALTER TABLE `pregunta_abierta`
   ADD CONSTRAINT `fk__usuario_pregunta_abierta` FOREIGN KEY (`id_user`) REFERENCES `alta` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+ALTER TABLE `preguntas_abiertas`
+ADD `ruta_imagen_respuesta` VARCHAR(255) NULL DEFAULT NULL AFTER `respuesta_esperada`;
 --
 -- Constraints for table `pregunta_opcion`
 --

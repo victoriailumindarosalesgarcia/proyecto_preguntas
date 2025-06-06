@@ -1,9 +1,9 @@
 <?php
 session_start();
 
+$directorio_subidas = "uploads/";
 
-$directorio_subidas = "uploads/"; 
-
+// Función para manejar la subida de archivos (sin cambios)
 function manejarSubidaArchivo($file_input_name, $directorio_subidas) {
    if (isset($_FILES[$file_input_name]) && $_FILES[$file_input_name]['error'] == UPLOAD_ERR_OK) {
        $archivo_temporal = $_FILES[$file_input_name]['tmp_name'];
@@ -11,7 +11,6 @@ function manejarSubidaArchivo($file_input_name, $directorio_subidas) {
        $ruta_destino = $directorio_subidas . $nombre_archivo;
        $tipo_archivo = strtolower(pathinfo($ruta_destino, PATHINFO_EXTENSION));
        $extensiones_permitidas = array("jpg", "jpeg", "png", "gif");
-
 
        if (!in_array($tipo_archivo, $extensiones_permitidas)) {
            return ['error' => "Error: Solo se permiten archivos JPG, JPEG, PNG y GIF para '".$file_input_name."'."];
@@ -27,11 +26,10 @@ function manejarSubidaArchivo($file_input_name, $directorio_subidas) {
    } elseif (isset($_FILES[$file_input_name]) && $_FILES[$file_input_name]['error'] != UPLOAD_ERR_NO_FILE) {
        return ['error' => "Error en la subida del archivo '".$file_input_name."': código " . $_FILES[$file_input_name]['error']];
    }
-   return ['success' => true, 'ruta_archivo' => null]; 
+   return ['success' => true, 'ruta_archivo' => null];
 }
 
-
-// Manejo de Solicitudes
+// Manejo de Solicitudes (sin cambios)
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'check_session') {
    header('Content-Type: application/json');
    if (!isset($_SESSION['usuario_id'])) {
@@ -50,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion_formulario']) 
        exit;
    }
 
-
    $servidor = "localhost"; $usuario_db = "root"; $password_db = ""; $nombre_db = "pag";
    $conexion = new mysqli($servidor, $usuario_db, $password_db, $nombre_db);
    if ($conexion->connect_error) {
@@ -60,20 +57,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion_formulario']) 
    }
    $conexion->set_charset("utf8");
 
-
-
    $pregunta_texto = trim($_POST['pregunta_texto'] ?? '');
    $respuesta_esperada = trim($_POST['respuesta_esperada'] ?? '');
    $dificultad = (int)($_POST['dificultad'] ?? 3);
    $id_usuario_actual = $_SESSION['usuario_id'];
   
-   $estado_pregunta = 'pendiente'; 
+   $estado_pregunta = 'pendiente';
    if (isset($_POST['aprobar_btn'])) {
-       
        $estado_pregunta = 'aprobada';
    }
-
-
   
    if (empty($pregunta_texto) || empty($respuesta_esperada)) {
        $_SESSION['mensaje_error'] = "Error: El texto de la pregunta y la respuesta esperada son obligatorios.";
@@ -81,7 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion_formulario']) 
        exit;
    }
 
+    // --- INICIO DE LA MODIFICACIÓN ---
 
+   // 1. Procesar la imagen de la pregunta (como antes)
    $ruta_imagen_pregunta = null;
    $resultado_subida_pregunta = manejarSubidaArchivo('pregunta_imagen', $directorio_subidas);
    if (isset($resultado_subida_pregunta['error'])) {
@@ -91,17 +85,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion_formulario']) 
    }
    $ruta_imagen_pregunta = $resultado_subida_pregunta['ruta_archivo'];
 
+   // 2. AÑADIDO: Procesar la imagen de la respuesta
+   $ruta_imagen_respuesta = null;
+   $resultado_subida_respuesta = manejarSubidaArchivo('respuesta_imagen', $directorio_subidas);
+   if (isset($resultado_subida_respuesta['error'])) {
+       $_SESSION['mensaje_error'] = $resultado_subida_respuesta['error'];
+       header('Location: pa_admin.html');
+       exit;
+   }
+   $ruta_imagen_respuesta = $resultado_subida_respuesta['ruta_archivo'];
+
 
    $conexion->begin_transaction();
    try {
-
-       $sql_insert = "INSERT INTO preguntas_abiertas (texto_pregunta, ruta_imagen_pregunta, respuesta_esperada, dificultad, id_usuario, estado) VALUES (?, ?, ?, ?, ?, ?)";
+       // 3. MODIFICADO: Añadir la nueva columna 'ruta_imagen_respuesta' a la consulta
+       $sql_insert = "INSERT INTO preguntas_abiertas (texto_pregunta, ruta_imagen_pregunta, respuesta_esperada, ruta_imagen_respuesta, dificultad, id_usuario, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
        $stmt = $conexion->prepare($sql_insert);
        if (!$stmt) {
            throw new Exception("Error preparando la consulta: " . $conexion->error);
        }
       
-       $stmt->bind_param("sssiis", $pregunta_texto, $ruta_imagen_pregunta, $respuesta_esperada, $dificultad, $id_usuario_actual, $estado_pregunta);
+       // 4. MODIFICADO: Ajustar los tipos y variables en bind_param para incluir la nueva ruta
+       $stmt->bind_param("ssssiis", $pregunta_texto, $ruta_imagen_pregunta, $respuesta_esperada, $ruta_imagen_respuesta, $dificultad, $id_usuario_actual, $estado_pregunta);
       
        if (!$stmt->execute()) {
            throw new Exception("Error al guardar la pregunta abierta: " . $stmt->error);
@@ -110,9 +115,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion_formulario']) 
        $conexion->commit();
       
        $_SESSION['mensaje_exito'] = "¡Pregunta abierta guardada exitosamente con estado: ".$estado_pregunta."!";
-       header('Location: pa_admin.html'); // Redirigir para limpiar el form
+       header('Location: pa_admin.html');
        exit;
-
 
    } catch (Exception $e) {
        $conexion->rollback();
@@ -122,6 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion_formulario']) 
    } finally {
        $conexion->close();
    }
+   // --- FIN DE LA MODIFICACIÓN ---
 }
 ?>
-

@@ -1,26 +1,40 @@
 <?php
-$resultado = mysqli_stmt_get_result($stmt);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-
-if ($fila = mysqli_fetch_assoc($resultado)) {
-   // Verificar la contraseña encriptada
-   if (password_verify($password, $fila['password'])) {
-       $_SESSION['usuario_id'] = $fila['id_user'];
-       $_SESSION['usuario_nombre'] = $fila['nombre'];
-
-
-       header("Location: perfil_profe.html");
-       exit;
-   } else {
-       echo "<h2>Contraseña incorrecta.</h2>";
-   }
-} else {
-   echo "<h2>Usuario no encontrado.</h2>";
+$conexion = new mysqli("localhost", "root", "", "pag");
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
 }
 
+$correo = $_POST['correo'] ?? '';
+$password = $_POST['password'] ?? '';
 
-mysqli_stmt_close($stmt);
-mysqli_close($conexion);
+if (empty($correo) || empty($password)) {
+    echo "Por favor completa todos los campos.";
+    exit;
+}
+
+$sql = "SELECT id_user, password FROM alta WHERE correo = ?";
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param("s", $correo);
+$stmt->execute();
+$stmt->store_result();
+
+if ($stmt->num_rows == 1) {
+    $stmt->bind_result($id_user, $hash_guardado);
+    $stmt->fetch();
+
+    if (password_verify($password, $hash_guardado)) {
+        header("Location: dashboard_admin.html");
+        exit;
+    } else {
+        echo "Contraseña incorrecta.";
+    }
+} else {
+    echo "Usuario no encontrado.";
+}
+
+$stmt->close();
+$conexion->close();
 ?>
-
-

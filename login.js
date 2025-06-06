@@ -1,25 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-   const form = document.getElementById("loginForm");
-    form.addEventListener("submit", function (e) {
-     const email = document.getElementById("email").value.trim();
-     const password = document.getElementById("password").value.trim();
-      if (!email || !password) {
-       alert("Por favor, completa todos los campos.");
-       e.preventDefault(); // Evita que el formulario se envíe
-     }
-   });
- });
+  const form = document.getElementById("loginForm");
+  form.addEventListener("submit", function (e) {
+    const correo = document.getElementById("correo").value.trim();
+    const password = document.getElementById("password").value.trim();
+    if (!correo || !password) {
+      alert("Por favor, completa todos los campos.");
+      e.preventDefault(); // Detiene el envío
+    }
+  });
 
- document.addEventListener("DOMContentLoaded", () => {
-   const menuIcon = document.getElementById("menuIcon");
-   const sidebar = document.getElementById("sidebar");
-   const body = document.body;
+  const menuIcon = document.getElementById("menuIcon");
+  const sidebar = document.getElementById("sidebar");
+  const body = document.body;
 
-   // --- Funcionalidad del Menú Desplegable ---
-   if (menuIcon && sidebar) {
-       menuIcon.addEventListener("click", () => {
-           sidebar.classList.toggle("open");
-           body.classList.toggle("sidebar-open");
-       });
-   }
+  if (menuIcon && sidebar) {
+    menuIcon.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      body.classList.toggle("sidebar-open");
+    });
+  }
 });
