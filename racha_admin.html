@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Racha de Preguntas: IF - Admin</title>
+   <link rel="stylesheet" href="racha_admin.css" />
+</head>
+<body>
+   <header class="navbar">
+       <div class="menu-icon" id="menuIcon">&#9776;</div>
+       <div class="navbar-title-container">
+            <span class="navbar-title">Rachas de Preguntas</span>
+       </div>
+   </header>
+
+
+   <aside class="sidebar" id="sidebar">
+       <nav>
+           <ul>
+               <li><a href="dashboard_admin.html">Inicio Admin</a></li>
+               <li><a href="materias_admin.html">Materias</a></li>
+               <li><a href="racha_admin.html?topic=IF">Racha: IF</a></li> <li><a href="racha_admin.html?topic=Loops">Racha: Loops</a></li> <hr class="sidebar-divider">
+               <li><a href="opcion_admin.html">Editor Op. Múltiple</a></li>
+               <li><a href="pa_admin.html">Editor Preg. Abierta</a></li>
+               <hr class="sidebar-divider">
+               <li><a href="login.html">Cerrar Sesión</a></li>
+           </ul>
+       </nav>
+   </aside>
+
+
+   <main class="main-content" id="mainContent">
+       <div class="content-card">
+           <h2 id="rachaTitle">Cargando tema... <span class="topic-icon">🔄</span></h2>
+          
+           <div class="add-question-container">
+              <a href="question_type_selection.html" class="button add-new-question-button" id="addNewQuestionBtn">
+                   &#10133; Añadir Nueva Pregunta
+               </a>
+           </div>
+          
+           <div id="loadingMessage" class="loading-message">Cargando preguntas...</div>
+           <div class="questions-list" id="questionsListContainer">
+               </div>
+           <p id="noQuestionsMessage" class="no-items-message" style="display: none;">
+               No hay preguntas para este tema todavía. ¡Anímate a añadir la primera!
+           </p>
+       </div>
+   </main>
+
+
+   <script src="racha_admin.js" defer></script>
+</body>
+</html>
