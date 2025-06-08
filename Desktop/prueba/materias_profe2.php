@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8" />
+   <title>Materias</title> <link rel="stylesheet" href="materias_admin.css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+   <header class="navbar">
+    <div class="navbar">
+        <div class="navbar-left">
+            <div class="menu-icon" id="menuIcon">☰</div>
+            <a href="dashboard_admin.html" id="homeIcon">
+                <i class="fas fa-home home-icon"></i>
+            </a>
+        </div>
+
+       <div class="navbar-title-container">
+            <span class="navbar-title">Panel de Administración</span>
+       </div>
+    </div>
+   </header>
+
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="dashboard_admin.html">Inicio</a></li>
+                <li><a href="perfil_admin.html">Mi Perfil</a></li>
+                <li><a href="materias_admin.html">Materias</a></li>
+                <li><a href="temas_admin.html">Temas</a></li>
+                <li><a href="preguntas_admin.html">Preguntas</a></li>
+                <hr class="sidebar-divider">
+                <li><a href="login.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+
+   <main class="main-content" id="mainContent">
+       <div class="content-card">
+           <h2>Materias Disponibles</h2>
+          
+           <ul class="materias-list" id="materiasList">
+               <li>
+                   <a href="pensamientocomputacionalparalaingenieria.html">
+                       Pensamiento Computacional para la Ingeniería
+                   </a>
+               </li>
+           </ul>
+
+
+           <div class="add-button-container">
+               <a href="add_materia.html" class="add-button" id="addMateriaBtn">
+                   &#10133;
+               </a>
+           </div>
+       </div>
+
+       </div>
+        <a href="#" id="dynamicBackButton" class="back-button">Volver atrás</a>
+    </div>
+   </main>
+
+
+   <script src="materias_admin.js" defer></script>
+
+</body>
+</html>
