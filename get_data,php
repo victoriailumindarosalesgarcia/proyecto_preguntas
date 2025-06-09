@@ -1,0 +1,39 @@
+<?php
+header('Content-Type: application/json');
+$conexion = new mysqli("localhost", "root", "", "pag");
+
+if ($conexion->connect_error) {
+    echo json_encode(['success' => false, 'message' => 'Error de conexión']);
+    exit;
+}
+$conexion->set_charset("utf8");
+
+$action = $_GET['action'] ?? '';
+
+if ($action === 'get_materias') {
+    $result = $conexion->query("SELECT id_materia, nombre FROM materia ORDER BY nombre");
+    $materias = [];
+    if ($result) {
+        while($row = $result->fetch_assoc()) {
+            $materias[] = $row;
+        }
+    }
+    echo json_encode(['success' => true, 'materias' => $materias]);
+} elseif ($action === 'get_temas' && isset($_GET['id_materia'])) {
+    $id_materia = intval($_GET['id_materia']);
+    $stmt = $conexion->prepare("SELECT id_tema, nombre FROM tema WHERE materia = ? ORDER BY nombre");
+    $stmt->bind_param("i", $id_materia);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $temas = [];
+    while($row = $result->fetch_assoc()) {
+        $temas[] = $row;
+    }
+    echo json_encode(['success' => true, 'temas' => $temas]);
+    $stmt->close();
+} else {
+    echo json_encode(['success' => false, 'message' => 'Acción no válida']);
+}
+
+$conexion->close();
+?>

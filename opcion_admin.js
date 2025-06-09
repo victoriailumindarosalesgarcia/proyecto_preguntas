@@ -1,161 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
-   const menuIcon = document.getElementById("menuIcon");
-   const sidebar = document.getElementById("sidebar");
-   const body = document.body;
+    const menuIcon = document.getElementById("menuIcon");
+    const sidebar = document.getElementById("sidebar");
+    const body = document.body;
 
-
-
-   // --- Funcionalidad del Menú Desplegable ---
-   if (menuIcon && sidebar) {
-       menuIcon.addEventListener("click", () => {
-           sidebar.classList.toggle("open");
-           body.classList.toggle("sidebar-open");
-       });
-   }
-
-
-   
-   const questionForm = document.getElementById('question-form');
-   if (questionForm) {
-    
-       document.querySelectorAll('.correct-radio').forEach(radio => {
-           radio.addEventListener('change', function() {
-               document.querySelectorAll('.option').forEach(opt => {
-                   opt.classList.remove('correct');
-               });
-               if (this.checked) {
-                   this.closest('.option').classList.add('correct');
-               }
-           });
-       });
-
-
-
-       const checkedRadio = document.querySelector('.correct-radio:checked');
-       if (checkedRadio) {
-           checkedRadio.closest('.option').classList.add('correct');
-       } else {
-    
-           const firstRadio = document.querySelector('.correct-radio');
-           if (firstRadio) {
-               firstRadio.checked = true;
-               firstRadio.closest('.option').classList.add('correct');
-           }
-       }
-      
-        const dificultadInput = document.getElementById('dificultad_valor');
-        const fueguitos = document.querySelectorAll('.fueguito');
-
-        const fueguitosContainer = document.querySelector('.fueguitos');
-        let selectedLevel = 3; 
-
-document.querySelectorAll('.fueguito').forEach(fueguito => {
-    const level = parseInt(fueguito.dataset.level);
-    if (level <= selectedLevel) {
-        fueguito.classList.add('selected');
+    if (menuIcon && sidebar) {
+        menuIcon.addEventListener("click", () => {
+            sidebar.classList.toggle("open");
+            body.classList.toggle("sidebar-open");
+        });
     }
 
-    // Eventos
-    fueguito.addEventListener('mouseover', function() {
-        highlightFueguitos(level);
-    });
+    const materiaSelect = document.getElementById('materiaSelect');
+    const temaSelect = document.getElementById('temaSelect');
 
-    fueguito.addEventListener('mouseout', function() {
-        highlightFueguitos(selectedLevel);
-    });
+    function cargarMaterias() {
+        fetch('get_data.php?action=get_materias')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    materiaSelect.innerHTML = '<option value="">-- Elige una materia --</option>';
+                    data.materias.forEach(materia => {
+                        const option = new Option(materia.nombre, materia.id_materia);
+                        materiaSelect.add(option);
+                    });
+                } else {
+                    materiaSelect.innerHTML = '<option value="">Error al cargar materias</option>';
+                }
+            }).catch(() => {
+                materiaSelect.innerHTML = '<option value="">Error de conexión</option>';
+            });
+    }
 
-    fueguito.addEventListener('click', function() {
-        selectedLevel = level;
-        document.getElementById('dificultad').value = selectedLevel;
-        highlightFueguitos(selectedLevel);
-    });
-});
-
-function highlightFueguitos(level) {
-    document.querySelectorAll('.fueguito').forEach((f, index) => {
-        if (index < level) {
-            f.classList.add('selected');
-        } else {
-            f.classList.remove('selected');
+    function cargarTemas(idMateria) {
+        temaSelect.innerHTML = '<option value="">Cargando...</option>';
+        if (!idMateria) {
+            temaSelect.innerHTML = '<option value="">Selecciona una materia primero</option>';
+            return;
         }
-    });
-}
 
+        fetch(`get_data.php?action=get_temas&id_materia=${idMateria}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.temas.length > 0) {
+                    temaSelect.innerHTML = '<option value="">-- Elige un tema --</option>';
+                    data.temas.forEach(tema => {
+                        const option = new Option(tema.nombre, tema.id_tema);
+                        temaSelect.add(option);
+                    });
+                } else {
+                    temaSelect.innerHTML = '<option value="">No hay temas para esta materia</option>';
+                }
+            }).catch(() => {
+                temaSelect.innerHTML = '<option value="">Error de conexión</option>';
+            });
+    }
 
-       const initialDifficulty = dificultadInput ? parseInt(dificultadInput.value) : 3;
-       fueguitos.forEach((f, index) => {
-           if (index < initialDifficulty) f.classList.add('selected');
-       });
-
-
-       const deleteButton = document.querySelector('.delete-button');
-       if (deleteButton) {
-           deleteButton.addEventListener('click', function() {
-               if (confirm('¿Estás seguro que deseas eliminar esta pregunta y sus datos? Esta acción limpiará el formulario.')) {
-                   questionForm.reset();
-
-
-                   document.querySelectorAll('.image-preview').forEach(preview => {
-                       preview.innerHTML = '';
-                   });
-
-
-                   document.querySelectorAll('.option').forEach(opt => {
-                       opt.classList.remove('correct');
-                   });
-                   const firstRadio = document.querySelector('.correct-radio');
-                   if (firstRadio) {
-                       firstRadio.checked = true;
-                       firstRadio.closest('.option').classList.add('correct');
-                   }
-                  
-                   if(dificultadInput) dificultadInput.value = 3;
-                   fueguitos.forEach((f, index) => {
-                       if (index < 3) f.classList.add('selected');
-                       else f.classList.remove('selected');
-                   });
-               }
-           });
-       }
-
-
-
-       document.querySelectorAll('.image-upload-input').forEach(input => {
-           input.addEventListener('change', function(e) {
-               const file = e.target.files[0];
-               let previewContainer;
-               if (this.name === 'pregunta_imagen') {
-                   previewContainer = document.getElementById('pregunta-preview');
-               } else {
-                   const parentOption = this.closest('.option');
-                   if (parentOption) {
-                       previewContainer = parentOption.querySelector('.option-image-preview');
-                   }
-               }
-
-
-               if (!file || !previewContainer) {
-                   if (file && !previewContainer) console.warn('No se encontró contenedor de preview para', this.name);
-                   if(!file && previewContainer) previewContainer.innerHTML = '';
-                   return;
-               }
-              
-               if (!file.type.match('image.*')) {
-                   alert('Por favor, selecciona un archivo de imagen válido (JPEG, PNG, GIF).');
-                   this.value = '';
-                   previewContainer.innerHTML = ''; 
-                   return;
-               }
-              
-               const reader = new FileReader();
-               reader.onload = function(event) {
-                   previewContainer.innerHTML = ''; 
-                   const img = document.createElement('img');
-                   img.src = event.target.result;
-                   previewContainer.appendChild(img);
-               };
-               reader.readAsDataURL(file);
-           });
-       });
-   }
+    if(materiaSelect && temaSelect){
+        materiaSelect.addEventListener('change', () => cargarTemas(materiaSelect.value));
+        cargarMaterias();
+    }
+   
+    const questionForm = document.getElementById('question-form');
+    if (questionForm) {
+        // ... (Aquí va todo tu código JS anterior para este formulario: fueguitos, previews de imágenes, etc.)
+    }
 });

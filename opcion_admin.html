@@ -3,13 +3,12 @@
 <head>
    <meta charset="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <title>Editor de Preguntas</title>
+   <title>Editor de Preguntas de Opción Múltiple</title>
    <link rel="stylesheet" href="opcion_admin.css" />
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
    <header class="navbar">
-        <div class="navbar">
         <div class="navbar-left">
             <div class="menu-icon" id="menuIcon">☰</div>
             <a href="dashboard_admin.html" id="homeIcon">
@@ -21,14 +20,13 @@
        </div>
    </header>
 
-
     <aside class="sidebar" id="sidebar">
         <nav>
             <ul>
                 <li><a href="dashboard_admin.html">Inicio</a></li>
                 <li><a href="perfil_admin.html">Mi Perfil</a></li>
                 <li><a href="materias_admin.html">Materias</a></li>
-                <li><a href="temas_admin.html">Temas</a></li>
+                <li><a href="temas_admin.php">Temas</a></li>
                 <li><a href="preguntas_admin.html">Preguntas</a></li>
                 <hr class="sidebar-divider">
                 <li><a href="login.html">Cerrar Sesión</a></li>
@@ -36,12 +34,25 @@
         </nav>
     </aside>
 
-
    <main class="main-content" id="mainContent">
        <div class="content-card">
            <h2>Editor de Preguntas</h2>
            <form id="question-form" action="opcion_admin.php" method="POST" enctype="multipart/form-data">
-               <input type="hidden" name="accion_formulario" value="guardar_pregunta"> <div class="form-section">
+               <input type="hidden" name="accion_formulario" value="guardar_pregunta">
+               
+               <div class="form-section">
+                   <label for="materiaSelect" class="form-label">Materia:</label>
+                   <select id="materiaSelect" name="id_materia" class="form-input" required>
+                       <option value="">Cargando materias...</option>
+                   </select>
+               </div>
+               <div class="form-section">
+                   <label for="temaSelect" class="form-label">Tema:</label>
+                   <select id="temaSelect" name="id_tema" class="form-input" required>
+                       <option value="">Selecciona una materia primero</option>
+                   </select>
+               </div>
+               <div class="form-section">
                    <label for="pregunta_texto" class="form-label">Pregunta:</label>
                    <div class="question-area">
                        <textarea id="pregunta_texto" class="form-textarea" name="pregunta" placeholder="Escribe tu pregunta aquí" required></textarea>
@@ -55,24 +66,22 @@
                    <div class="image-preview" id="pregunta-preview"></div>
                </div>
 
-
                <div class="form-section">
                    <label class="form-label">Opciones de Respuesta (marca la correcta):</label>
                    <div class="options">
-                    <label class="option">
-                        <input type="radio" name="correcta" value="1" checked class="correct-radio">
-                        <div class="option-content">
-                            <input type="text" name="op1_texto" placeholder="Texto de la respuesta 1" class="answer-input" required>
-                            <div class="image-upload-wrapper-icon">
-                                <label class="image-upload-label-icon">
-                                    <input type="file" name="op1_imagen" accept="image/*" class="image-upload-input">
-                                    🖼️
-                                </label>
-                            </div>
-                        </div>
-                        <div class="image-preview option-image-preview" id="op1-preview"></div>
-                    </label>
-                      
+                       <label class="option">
+                           <input type="radio" name="correcta" value="1" checked class="correct-radio">
+                           <div class="option-content">
+                               <input type="text" name="op1_texto" placeholder="Texto de la respuesta 1" class="answer-input" required>
+                               <div class="image-upload-wrapper-icon">
+                                   <label class="image-upload-label-icon">
+                                       <input type="file" name="op1_imagen" accept="image/*" class="image-upload-input">
+                                       🖼️
+                                   </label>
+                               </div>
+                           </div>
+                           <div class="image-preview option-image-preview" id="op1-preview"></div>
+                       </label>
                        <label class="option">
                            <input type="radio" name="correcta" value="2" class="correct-radio">
                            <div class="option-content">
@@ -86,12 +95,10 @@
                            </div>
                            <div class="image-preview option-image-preview" id="op2-preview"></div>
                        </label>
-
-
                        <label class="option">
                            <input type="radio" name="correcta" value="3" class="correct-radio">
                            <div class="option-content">
-                               <input type="text" name="op3_texto" placeholder="Texto de la respuesta 3" class="answer-input">
+                               <input type="text" name="op3_texto" placeholder="Texto de la respuesta 3 (opcional)" class="answer-input">
                                 <div class="image-upload-wrapper-icon">
                                    <label class="image-upload-label-icon">
                                        <input type="file" name="op3_imagen" accept="image/*" class="image-upload-input">
@@ -101,12 +108,10 @@
                            </div>
                           <div class="image-preview option-image-preview" id="op3-preview"></div>
                        </label>
-
-
                        <label class="option">
                            <input type="radio" name="correcta" value="4" class="correct-radio">
                            <div class="option-content">
-                               <input type="text" name="op4_texto" placeholder="Texto de la respuesta 4" class="answer-input">
+                               <input type="text" name="op4_texto" placeholder="Texto de la respuesta 4 (opcional)" class="answer-input">
                                 <div class="image-upload-wrapper-icon">
                                    <label class="image-upload-label-icon">
                                        <input type="file" name="op4_imagen" accept="image/*" class="image-upload-input">
@@ -142,8 +147,6 @@
        </div>
    </main>
 
-
    <script src="opcion_admin.js" defer></script>
-
 </body>
 </html>

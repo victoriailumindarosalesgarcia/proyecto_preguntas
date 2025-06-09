@@ -9,18 +9,16 @@
 </head>
 <body>
    <header class="navbar">
-    <div class="navbar">
-        <div class="navbar-left">
-            <div class="menu-icon" id="menuIcon">☰</div>
-            <a href="dashboard_admin.html" id="homeIcon">
-                <i class="fas fa-home home-icon"></i>
-            </a>
-        </div>
-       <div class="navbar-title-container">
-            <span class="navbar-title">Panel de Administración</span>
-       </div>
+    <div class="navbar-left">
+        <div class="menu-icon" id="menuIcon">☰</div>
+        <a href="dashboard_admin.html" id="homeIcon">
+            <i class="fas fa-home home-icon"></i>
+        </a>
+    </div>
+   <div class="navbar-title-container">
+        <span class="navbar-title">Verdadero o Falso</span>
+   </div>
    </header>
-
 
     <aside class="sidebar" id="sidebar">
         <nav>
@@ -28,7 +26,7 @@
                 <li><a href="dashboard_admin.html">Inicio</a></li>
                 <li><a href="perfil_admin.html">Mi Perfil</a></li>
                 <li><a href="materias_admin.html">Materias</a></li>
-                <li><a href="temas_admin.html">Temas</a></li>
+                <li><a href="temas_admin.php">Temas</a></li>
                 <li><a href="preguntas_admin.html">Preguntas</a></li>
                 <hr class="sidebar-divider">
                 <li><a href="login.html">Cerrar Sesión</a></li>
@@ -36,13 +34,24 @@
         </nav>
     </aside>
 
-
    <main class="main-content" id="mainContent">
        <div class="content-card">
            <h2>Editor de Preguntas Verdadero/Falso</h2>
            <form id="vf-question-form" action="vf_admin.php" method="POST" enctype="multipart/form-data">
                <input type="hidden" name="accion_formulario" value="guardar_pregunta_vf">
               
+               <div class="form-section">
+                   <label for="materiaSelect" class="form-label">Materia:</label>
+                   <select id="materiaSelect" name="id_materia" class="form-input" required>
+                       <option value="">Cargando materias...</option>
+                   </select>
+               </div>
+               <div class="form-section">
+                   <label for="temaSelect" class="form-label">Tema:</label>
+                   <select id="temaSelect" name="id_tema" class="form-input" required>
+                       <option value="">Selecciona una materia primero</option>
+                   </select>
+               </div>
                <div class="form-section">
                    <label for="pregunta_texto_vf" class="form-label">Pregunta:</label>
                    <div class="question-area">
@@ -56,7 +65,6 @@
                    </div>
                    <div class="image-preview" id="pregunta-preview-vf"></div>
                </div>
-
 
                <div class="form-section">
                    <label class="form-label">Respuesta Correcta:</label>
@@ -75,7 +83,8 @@
                <div class="form-section difficulty-section">
                    <div class="difficulty-label">Dificultad:</div>
                    <div class="difficulty">
-                       <input type="hidden" id="dificultad_valor_vf" name="dificultad" value="3"> <div class="fueguitos">
+                       <input type="hidden" id="dificultad_valor_vf" name="dificultad" value="3">
+                       <div class="fueguitos">
                            <span class="fueguito" data-level="1">🔥</span>
                            <span class="fueguito" data-level="2">🔥</span>
                            <span class="fueguito" data-level="3">🔥</span>
@@ -86,14 +95,13 @@
                </div>
               
                <div class="action-buttons">
-                   <button type="button" class="button delete-button">ELIMINAR</button>
+                   <button type="button" class="button delete-button">LIMPIAR</button>
                    <button type="submit" name="guardar_btn" class="button save-button">GUARDAR</button>
                    <button type="submit" name="aprobar_btn" class="button approve-button">APROBAR</button>
                </div>
            </form>
        </div>
    </main>
-
 
    <script src="vf_admin.js" defer></script>
 </body>

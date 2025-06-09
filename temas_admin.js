@@ -72,37 +72,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
    function displayTopics(topics) {
-       if (!topicsListContainer) return;
-       topicsListContainer.innerHTML = '';
+    if (!topicsListContainer) return;
+    topicsListContainer.innerHTML = '';
 
+    if (!topics || topics.length === 0) {
+        if (noTopicsMessage) {
+            noTopicsMessage.textContent = 'No hay temas registrados para esta materia.';
+            noTopicsMessage.style.display = 'block';
+        }
+        return;
+    }
+    if (noTopicsMessage) noTopicsMessage.style.display = 'none';
 
-       if (!topics || topics.length === 0) {
-           if (noTopicsMessage) {
-               noTopicsMessage.textContent = 'No hay temas registrados para esta materia.';
-               noTopicsMessage.style.display = 'block';
-           }
-           return;
-       }
-       if (noTopicsMessage) noTopicsMessage.style.display = 'none';
+    topics.forEach(topic => {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-item';
 
+        // Convertir el nombre del tema en un enlace
+        const link = document.createElement('a');
+        link.href = `preguntas_por_tema.php?id_tema=${topic.id_tema}`;
+        link.className = 'item-name';
+        link.textContent = topic.nombre_tema;
+        
+        listItem.appendChild(link); // Añadir el enlace en lugar del span
 
-       topics.forEach(topic => {
-           const listItem = document.createElement('li');
-           listItem.className = 'list-item';
-
-
-           const nameSpan = document.createElement('span');
-           nameSpan.className = 'item-name';
-           nameSpan.textContent = topic.nombre_tema;
-           listItem.appendChild(nameSpan);
-
-           const actionsDiv = document.createElement('div');
-           actionsDiv.className = 'item-actions';
-           listItem.appendChild(actionsDiv);
-          
-           topicsListContainer.appendChild(listItem);
-       });
-   }
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'item-actions';
+        // Puedes añadir botones de editar/eliminar aquí si quieres
+        listItem.appendChild(actionsDiv);
+       
+        topicsListContainer.appendChild(listItem);
+    });
+}
 
 
    if (materiaId) { 

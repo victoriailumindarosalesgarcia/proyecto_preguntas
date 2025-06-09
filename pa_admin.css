@@ -246,7 +246,7 @@ body.sidebar-open .main-content { margin-left: 250px; }
 .answer-area {
    display: flex;
    gap: 1rem;
-   align-items: flex-start;
+   align-items: center;
 }
 
 .answer-area .image-upload-wrapper {
