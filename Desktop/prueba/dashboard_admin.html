@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="dashboard_admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="menu-icon" id="menuIcon">&#9776;</div>
+        <div class="navbar-title-container">
+            <span class="navbar-title">Panel de Administración</span>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="dashboard_admin.html">Inicio</a></li>
+                <li><a href="perfil_admin.html">Mi Perfil</a></li>
+                <li><a href="materias_admin.html">Materias</a></li>
+                <li><a href="temas_admin.html">Temas</a></li>
+                <li><a href="preguntas_admin.html">Preguntas</a></li>
+                <li><a href="admin_usuarios.php">Gestionar usuarios</a></li>
+                <hr class="sidebar-divider">
+                <li><a href="login.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+        <div class="dashboard-container">
+            <h2>Bienvenido al Panel de Administración</h2>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value" id="totalMaterias">0</div>
+                    <div class="stat-label">Materias</div>
+                    <a href="materias_admin.php?from=dashboard_admin.html" class="stat-link">Ver todas</a>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-value" id="totalPreguntas">0</div>
+                    <div class="stat-label">Preguntas</div>
+                    <div class="stat-links">
+                        <a href="preguntas_admin.html?from=dashboard_admin.html"  class="stat-link">Ver todas</a>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value" id="totalTemas">0</div>
+                    <div class="stat-label">Temas</div>
+                    <a href="temas_admin.php" class="stat-link">Explorar</a>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <h3>Acciones Rápidas</h3>
+                <div class="action-buttons">
+                    <a href="add_materia.html" class="action-button">
+                        <span class="action-icon">➕</span>
+                        <span>Añadir Materia</span>
+                    </a>
+                    <a href="question_type_selection.html?from=dashboard_admin.html" class="action-button">
+                        <span class="action-icon">❓</span>
+                        <span>Crear Pregunta</span>
+                    </a>
+                    <a href="add_tema.php?from=dashboard_admin.html" class="action-button">
+                        <span class="action-icon">📌</span>
+                        <span>Agregar Tema</span>
+                    </a>
+                    <a href="alta.html?from=dashboard_admin.html" class="action-button">
+                        <span class="action-icon">🧑🏻‍🏫</span>
+                        <span>Dar de Alta Profesor</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="dashboard_admin.js"></script>
+
+</body>
+</html>

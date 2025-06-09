@@ -1,0 +1,209 @@
+body {
+   margin: 0;
+   padding: 0;
+   font-family: 'Segoe UI', sans-serif;
+   background-color: #f9fafb;
+   display: flex;
+   flex-direction: column;
+   color: #111827;
+   min-height: 100vh;
+   transition: margin-left 0.3s ease;
+}
+
+
+.navbar {
+   width: 100%;
+   height: 60px;
+   background-color: #6366f1;
+   display: flex;
+   align-items: center;
+   padding: 0 1.5rem;
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 1000;
+   box-sizing: border-box;
+}
+
+
+.menu-icon {
+   font-size: 28px;
+   color: white;
+   cursor: pointer;
+   padding: 0.5rem;
+}
+.navbar-title-container { flex-grow: 1; text-align: center; }
+.navbar-title { color: white; font-size: 1.25rem; font-weight: 500; }
+
+
+.sidebar {
+   height: 100%;
+   width: 250px;
+   position: fixed;
+   top: 60px;
+   left: -250px;
+   background-color: #374151;
+   padding-top: 1rem;
+   transition: left 0.3s ease;
+   z-index: 999;
+   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+.sidebar.open { left: 0; }
+.sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+.sidebar nav ul li a { display: block; padding: 0.75rem 1.5rem; color: #e5e7eb; text-decoration: none; font-size: 1rem; transition: background-color 0.2s ease, color 0.2s ease; }
+.sidebar nav ul li a:hover { background-color: #4f46e5; color: #ffffff; }
+.sidebar-divider {
+   height: 1px;
+   background-color: #4b5563; 
+   margin: 0.5rem 1.5rem;
+   border: none;
+}
+
+
+
+
+.main-content {
+   margin-top: 60px;
+   padding: 2rem;
+   width: 100%;
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   transition: margin-left 0.3s ease;
+}
+body.sidebar-open .main-content { margin-left: 250px; }
+
+
+.content-card {
+   background-color: #ffffff;
+   padding: 2rem;
+   width: 100%;
+   max-width: 700px;
+   border-radius: 12px;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+   margin-bottom: 2rem;
+}
+
+
+.content-card h2 {
+   text-align: center;
+   margin-top: 0;
+   margin-bottom: 1.5rem;
+   font-size: 1.6rem; 
+   color: #111827;
+}
+
+
+.topics-subtitle {
+   font-size: 1.1rem;
+   font-weight: 500;
+   color: #374151;
+   margin-top: 2rem;
+   margin-bottom: 1rem;
+   padding-bottom: 0.5rem;
+   border-bottom: 1px solid #e5e7eb;
+}
+
+
+.topics-list {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+
+
+.topics-list li {
+   margin-bottom: 1rem;
+}
+
+
+.topics-list li:last-child {
+   margin-bottom: 0;
+}
+
+
+.topics-list a {
+   display: block;
+   padding: 0.85rem 1.25rem;
+   background-color: #eef2ff; 
+   color: #4338ca;
+   border: 1px solid #c7d2fe;
+   border-radius: 8px;
+   text-decoration: none;
+   font-weight: 500;
+   text-align: left;
+   transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+
+.topics-list a:hover {
+   background-color: #e0e7ff;
+   border-color: #a5b4fc;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+   transform: translateY(-1px);
+}
+
+
+@media (max-width: 768px) {
+   body.sidebar-open .main-content { margin-left: 0; }
+   .sidebar { top: 0; height: 100vh; padding-top: calc(60px + 1rem); }
+   .sidebar.open { width: 100%; left: 0; }
+   .content-card h2 { font-size: 1.4rem; }
+}
+
+.back-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #e5e7eb;
+    color: #374151;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    margin-top: 1.5rem;
+}
+
+.back-button:hover {
+    background-color: #d1d5db;
+}
+
+.navbar-left {
+   display: flex;
+   align-items: center;
+   gap: 10px; 
+}
+
+.menu-icon {
+   font-size: 28px;
+   color: white;
+   cursor: pointer;
+   padding: 0.5rem;
+}
+
+.navbar-title-container {
+   flex-grow: 1;
+   text-align: center;
+   margin-left: 0; 
+}
+
+.navbar-title {
+   color: white;
+   font-size: 1.25rem;
+   font-weight: 500;
+}
+
+/* Estilo del ícono home */
+.home-icon {
+   color: white;
+   font-size: 1.2rem;
+   cursor: pointer;
+   transition: transform 0.2s;
+   display: block;
+   line-height: 1;
+}
+
+.home-icon:hover {
+   transform: scale(1.1);
+}

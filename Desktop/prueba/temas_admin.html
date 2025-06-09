@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Administrar Temas de Materia</title>
+   <link rel="stylesheet" href="temas_admin.css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+   <header class="navbar">
+       <div class="menu-icon" id="menuIcon">&#9776;</div>
+       <div class="navbar-title-container">
+            <span class="navbar-title">Administración de Temas</span>
+       </div>
+   </header>
+
+
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="dashboard_admin.html">Inicio</a></li>
+                <li><a href="perfil_admin.html">Mi Perfil</a></li>
+                <li><a href="materias_admin.html">Materias</a></li>
+                <li><a href="temas_admin.html">Temas</a></li>
+                <li><a href="preguntas_admin.html">Preguntas</a></li>
+                <hr class="sidebar-divider">
+                <li><a href="login.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+
+   <main class="main-content" id="mainContent">
+       <div class="content-card">
+           <h2>Temas de: <span id="materiaNameTitle">Cargando materia...</span></h2>
+          
+           <div class="add-item-container">
+               <a href="add_tema.html?from=temas_admin.html" class="button add-new-item-button" id="addTopicBtn">
+                   &#10133; Añadir Nuevo Tema
+               </a>
+           </div>
+          
+           <div id="loadingTopicsMessage" class="loading-message">Cargando temas...</div>
+           <ul class="items-list" id="topicsListContainer">
+               </ul>
+           <p id="noTopicsMessage" class="no-items-message" style="display: none;">
+               No hay temas registrados para esta materia.
+           </p>
+       </div>
+
+        </div>
+        <a href="#" id="dynamicBackButton" class="back-button">Volver atrás</a>
+    </div>
+
+   </main>
+    
+
+
+   <script src="temas_admin.js" defer></script>
+</body>
+</html>
